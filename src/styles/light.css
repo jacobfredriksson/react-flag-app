@@ -1,0 +1,8 @@
+:root {
+  --background-color: aqua;
+  --text-color: #333333;
+}
+
+.navbar-container {
+  color: var(--background-color);
+}
