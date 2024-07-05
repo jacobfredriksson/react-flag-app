@@ -1,12 +1,14 @@
 import "./App.css";
 import "./styles/dark.css";
 import "./styles/light.css";
-import Navbar from "./components/Navbar";
+import Header from "./components/Header";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
     <>
-      <Navbar toggleTheme={toggleTheme} />
+      <Header />
+      <HomePage />
     </>
   );
 }

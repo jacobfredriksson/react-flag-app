@@ -1,9 +1,5 @@
 /* dark-theme.css */
 :root {
-  --background-color: #333333;
+  --background-color: #2b3844;
   --text-color: #ffffff;
-}
-
-.navbar-container {
-  color: var(--background-color);
 }
