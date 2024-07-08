@@ -41,6 +41,7 @@ const HomePage = () => {
         {filteredCountries.map((country) => (
           <CountryCard
             key={country.name}
+            flag={country.flag}
             name={country.name}
             population={country.population}
             region={country.region}

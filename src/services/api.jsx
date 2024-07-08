@@ -4,7 +4,7 @@ const baseUrl = "https://restcountries.com/v3.1";
 export const getAllCountries = async () => {
   try {
     const response = await fetch(
-      `${baseUrl}/all?fields=name,population,region,capital`
+      `${baseUrl}/all?fields=flags,name,population,region,capital`
     );
     if (!response.ok) {
       throw new Error("Failed to get all countries");
@@ -12,6 +12,7 @@ export const getAllCountries = async () => {
     const data = await response.json();
 
     const extractedData = data.map((country) => ({
+      flag: country.flags ? country.flags.png : "No Flag",
       name: country.name.common,
       population: country.population,
       region: country.region,
@@ -31,15 +32,38 @@ export const getAllCountries = async () => {
 // Function to search countries by name
 export const searchCountries = async (search) => {
   try {
+    let url;
+    if (search.length === 1) {
+      url = `${baseUrl}/name/${search}*?fields=flags,name,population,region,capital`;
+    } else if (search.length > 1) {
+      url = `${baseUrl}/name/${search}?fields=flags,name,population,region,capital`;
+    } else {
+      return [];
+    }
+
     const response = await fetch(
-      `{baseUrl}/name/{search}?fields=name,population,region,capital`
+      `${baseUrl}/name/${search}?fields=flags,name,population,region,capital`
     );
     if (!response.ok) {
       throw new Error("Failed to get countries");
     }
     const data = await response.json();
-    return data;
+
+    const filteredData = data
+      .filter((country) =>
+        country.name.common.toLowerCase().startsWith(search.toLowerCase())
+      )
+      .sort((a, b) => a.name.common.localeCompare(b.name.common));
+
+    return filteredData.map((country) => ({
+      flag: country.flags ? country.flags.png : "No Flag",
+      name: country.name.common,
+      population: country.population,
+      region: country.region,
+      capital: country.capital ? country.capital[0] : "No Capital",
+    }));
   } catch (error) {
     console.error("Error when searching for country:", error);
+    return [];
   }
 };
