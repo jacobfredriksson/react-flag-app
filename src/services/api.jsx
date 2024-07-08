@@ -67,3 +67,40 @@ export const searchCountries = async (search) => {
     return [];
   }
 };
+
+// Function for regions
+
+export const countriesByRegion = async (region) => {
+  try {
+    let url;
+    if (region === "all") {
+      url = `${baseUrl}/all?fields=flags,name,population,region,capital`;
+    } else {
+      url = `${baseUrl}/region/${region}?fields=flags,name,population,region,capital`;
+    }
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    const extractedData = data.map((country) => ({
+      flag: country.flags.png,
+      name: country.name.common,
+      population: country.population,
+      region: country.region,
+      capital:
+        country.capital && country.capital.length > 0
+          ? country.capital[0]
+          : "No capital",
+    }));
+
+    return extractedData;
+  } catch (error) {
+    console.error("Error getting countries by region:", error);
+    throw error;
+  }
+};
