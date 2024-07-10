@@ -1,11 +1,11 @@
-import "../styles/dark.css";
+import "./header.css";
 
-const Header = () => {
+const Header = ({ toggleTheme }) => {
   return (
     <div className="header-container">
       <h1 className="header-text">The Flag app</h1>
       <img className="header-logo" src="src/assets/techover-logo-dark.png" />
-      <button className="header-button">
+      <button className="header-button" onClick={toggleTheme}>
         <svg
           className="header-button-icon"
           xmlns="http://www.w3.org/2000/svg"

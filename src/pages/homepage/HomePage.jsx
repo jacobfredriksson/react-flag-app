@@ -2,11 +2,12 @@ import {
   getAllCountries,
   searchCountries,
   countriesByRegion,
-} from "../services/api";
-import CountryCard from "../components/CountryCard";
-import Search from "../components/Search";
-import Dropdown from "../components/Dropdown";
+} from "../../services/api";
+import CountryCard from "../../components/countrycard/CountryCard";
+import Search from "../../components/search/Search";
+import Dropdown from "../../components/dropdown/Dropdown";
 import React, { useState, useEffect } from "react";
+import "./homepage.css";
 
 const HomePage = () => {
   const [allCountries, setAllCountries] = useState([]);
@@ -56,12 +57,14 @@ const HomePage = () => {
   };
 
   return (
-    <div>
-      <Search onSearch={handleSearch} />
-      <Dropdown
-        regions={["all", "africa", "america", "asia", "europe", "oceania"]}
-        onSelect={handleRegionChange}
-      />
+    <div className="homepage-container">
+      <div className="search-container">
+        <Search onSearch={handleSearch} />
+        <Dropdown
+          regions={["all", "africa", "america", "asia", "europe", "oceania"]}
+          onSelect={handleRegionChange}
+        />
+      </div>
       <div className="country-cards">
         {filteredCountries.map((country) => (
           <CountryCard

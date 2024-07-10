@@ -1,3 +1,5 @@
+import "./dropdown.css";
+
 const Dropdown = ({ regions, onSelect }) => {
   const handleChange = (e) => {
     const selectedRegion = e.target.value;

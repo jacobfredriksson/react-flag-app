@@ -1,0 +1,9 @@
+.search-container {
+  display: flex;
+  flex-direction: row;
+  margin: 30px auto;
+  justify-content: space-between;
+  padding: 0px 20px;
+  background-color: var(--primary-background);
+  max-width: 1200px;
+}
