@@ -1,10 +1,9 @@
 const baseUrl = "https://restcountries.com/v3.1";
 
-// Function to get all countries for home page
 export const getAllCountries = async () => {
   try {
     const response = await fetch(
-      `${baseUrl}/all?fields=flags,name,population,region,capital`
+      `${baseUrl}/all?fields=flags,name,population,region,capital,cca3`
     );
     if (!response.ok) {
       throw new Error("Failed to get all countries");
@@ -20,6 +19,7 @@ export const getAllCountries = async () => {
         country.capital && country.capital.length > 0
           ? country.capital[0]
           : "No capital",
+      cca3: country.cca3,
     }));
 
     return extractedData;
@@ -29,20 +29,19 @@ export const getAllCountries = async () => {
   }
 };
 
-// Function to search countries by name
 export const searchCountries = async (search) => {
   try {
     let url;
     if (search.length === 1) {
-      url = `${baseUrl}/name/${search}*?fields=flags,name,population,region,capital`;
+      url = `${baseUrl}/name/${search}*?fields=flags,name,population,region,capital,cca3`;
     } else if (search.length > 1) {
-      url = `${baseUrl}/name/${search}?fields=flags,name,population,region,capital`;
+      url = `${baseUrl}/name/${search}?fields=flags,name,population,region,capital,cca3`;
     } else {
       return [];
     }
 
     const response = await fetch(
-      `${baseUrl}/name/${search}?fields=flags,name,population,region,capital`
+      `${baseUrl}/name/${search}?fields=flags,name,population,region,capital,cca3`
     );
     if (!response.ok) {
       throw new Error("Failed to get countries");
@@ -61,6 +60,7 @@ export const searchCountries = async (search) => {
       population: country.population,
       region: country.region,
       capital: country.capital ? country.capital[0] : "No Capital",
+      cca3: country.cca3,
     }));
   } catch (error) {
     console.error("Error when searching for country:", error);
@@ -68,15 +68,13 @@ export const searchCountries = async (search) => {
   }
 };
 
-// Function for regions
-
 export const countriesByRegion = async (region) => {
   try {
     let url;
     if (region === "all") {
-      url = `${baseUrl}/all?fields=flags,name,population,region,capital`;
+      url = `${baseUrl}/all?fields=flags,name,population,region,capital,cca3`;
     } else {
-      url = `${baseUrl}/region/${region}?fields=flags,name,population,region,capital`;
+      url = `${baseUrl}/region/${region}?fields=flags,name,population,region,capital,cca3`;
     }
 
     const response = await fetch(url);
@@ -96,6 +94,7 @@ export const countriesByRegion = async (region) => {
         country.capital && country.capital.length > 0
           ? country.capital[0]
           : "No capital",
+      cca3: country.cca3,
     }));
 
     return extractedData;

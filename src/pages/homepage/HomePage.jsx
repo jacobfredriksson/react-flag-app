@@ -8,29 +8,29 @@ import Search from "../../components/search/Search";
 import Dropdown from "../../components/dropdown/Dropdown";
 import React, { useState, useEffect } from "react";
 import "./homepage.css";
+import { Link, useLoaderData } from "react-router-dom";
+
+// 1. använd data från useLoaderData och sätt den till allCountries som en state variabel
+// 2. Vid search andvänd useloaderdata som grundläggande data som filtreras över (all data ligger i data)
 
 const HomePage = () => {
   const [allCountries, setAllCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState("");
 
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const data = await getAllCountries();
-        setAllCountries(data);
-        setFilteredCountries(data);
-      } catch (error) {
-        console.error("Error when trying to get all countries", error);
-      }
-    };
+  const data = useLoaderData();
+  console.log(data);
 
-    fetchCountries();
-  }, []);
+  useEffect(() => {
+    if (data) {
+      setAllCountries(data);
+      setFilteredCountries(data);
+    }
+  }, [data]);
 
   const handleSearch = async (search) => {
     if (search.trim() === "") {
-      setFilteredCountries(allCountries);
+      setFilteredCountries(data);
     } else {
       try {
         const results = await searchCountries(search.trim());
@@ -46,7 +46,7 @@ const HomePage = () => {
     try {
       let countries;
       if (region === "all") {
-        countries = allCountries;
+        countries = data;
       } else {
         countries = await countriesByRegion(region);
       }
@@ -67,14 +67,16 @@ const HomePage = () => {
       </div>
       <div className="country-cards">
         {filteredCountries.map((country) => (
-          <CountryCard
-            key={country.name}
-            flag={country.flag}
-            name={country.name}
-            population={country.population}
-            region={country.region}
-            capital={country.capital}
-          />
+          <Link to={`/country/${country.cca3}`} key={country.cca3}>
+            <CountryCard
+              key={country.name}
+              flag={country.flag}
+              name={country.name}
+              population={country.population}
+              region={country.region}
+              capital={country.capital}
+            />
+          </Link>
         ))}
       </div>
     </div>
@@ -82,3 +84,12 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+export const allCountriesLoader = async () => {
+  try {
+    const data = await getAllCountries();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

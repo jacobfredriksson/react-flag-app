@@ -1,7 +1,19 @@
 import Header from "./components/Header/Header";
-import HomePage from "./pages/homepage/HomePage";
+import HomePage, { allCountriesLoader } from "./pages/homepage/HomePage";
+import CountryPage, {
+  countryDetailsLoader,
+} from "./pages/countrypage/CountryPage";
+import Layout from "./components/Layout/Layout";
 import "./styles/App.css";
 import { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -21,11 +33,29 @@ function App() {
     }
   }, [isDarkMode]);
 
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<Layout toggleTheme={toggleTheme} />}>
+        <Route index element={<HomePage />} loader={allCountriesLoader} />
+        <Route
+          path="country/:cca3"
+          element={<CountryPage />}
+          loader={countryDetailsLoader}
+        />
+      </Route>
+    )
+  );
+
   return (
-    <>
-      <Header toggleTheme={toggleTheme} />
-      <HomePage />
-    </>
+    <RouterProvider router={router} />
+    // <Router>
+    //   <Routes>
+    //     <Route path="/" element={<Layout toggleTheme={toggleTheme} />}>
+    //       <Route index element={<HomePage />} />
+    //       <Route path="/country/:cca3" element={<CountryPage />} />
+    //     </Route>
+    //   </Routes>
+    // </Router>
   );
 }
 

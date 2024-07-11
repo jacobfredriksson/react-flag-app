@@ -10,6 +10,7 @@ body.light-mode {
   --secondary-background: #ffffff;
   --primary-text: #000000;
   --secondary-text: #000000a1;
+  --chip-color: #ebebeb;
 }
 
 body.dark-mode {
@@ -17,4 +18,5 @@ body.dark-mode {
   --secondary-background: #2b3844;
   --secondary-text: #000000a1;
   --primary-text: #f2f2f2;
+  --chip-color: #444e56;
 }
