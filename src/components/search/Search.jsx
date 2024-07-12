@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./search.css";
 
 const Search = ({ onSearch }) => {
@@ -16,7 +16,8 @@ const Search = ({ onSearch }) => {
         type="text"
         value={search}
         onChange={handleSearch}
-        placeholder="Search country"
+        placeholder="Search for a country..."
+        className="search-input"
       />
     </div>
   );
