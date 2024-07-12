@@ -1,8 +1,14 @@
-body {
+body,
+input,
+select,
+option,
+div {
   font-family: "Open Sans", sans-serif;
   background-color: var(--dark-grey);
   background-color: var(--primary-background);
   color: var(--primary-text);
+  letter-spacing: 0.08rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body.light-mode {
@@ -11,6 +17,9 @@ body.light-mode {
   --primary-text: #000000;
   --secondary-text: #000000a1;
   --chip-color: #ebebeb;
+  --chevron-down-image: url("../assets/arrow-down-dark.svg");
+  --header-logo: url("../assets/techover-logo-dark.png");
+  --header-button-image: url("../assets/moon-bordered.svg");
 }
 
 body.dark-mode {
@@ -19,4 +28,7 @@ body.dark-mode {
   --secondary-text: #000000a1;
   --primary-text: #f2f2f2;
   --chip-color: #444e56;
+  --chevron-down-image: url("../assets/arrow-down-light.svg");
+  --header-logo: url("../assets/techover-logo.png");
+  --header-button-image: url("../assets/moon.svg");
 }
