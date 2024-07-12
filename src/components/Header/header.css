@@ -14,6 +14,7 @@
   font-size: 17px;
   letter-spacing: 2px;
   margin-left: 30px;
+  flex: 1;
 }
 
 .header-button {
@@ -22,8 +23,10 @@
   margin-right: 30px;
   border: none;
   justify-content: space-between;
-  background-color: var(--secondary-background);
+  background: transparent;
   color: var(--primary-text);
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .header-button-icon {
@@ -38,6 +41,23 @@
   border: none;
 }
 
-/* LIGHT MODE */
+.header-logo {
+  background-color: transparent;
+  height: 100%; 
+  background-image: var(--header-logo);
+  background-size: fill;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex: 1;
+}
 
-/* DARK MODE */
+.header-button-image {
+  background-color: transparent;
+  height: 25px; 
+  width: 25px;
+  background-image: var(--header-button-image);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 10px;
+}

@@ -8,9 +8,9 @@ const Dropdown = ({ regions, onSelect }) => {
   };
 
   return (
-    <div>
-      <select onChange={handleChange}>
-        <option value="all">All</option>
+    <div className="custom-dropdown-wrapper">
+      <select className="dropdown" onChange={handleChange}>
+        <option value="all">Filter by region</option>
         <option value="africa">Africa</option>
         <option value="america">America</option>
         <option value="asia">Asia</option>
