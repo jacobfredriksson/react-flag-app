@@ -12,9 +12,7 @@
 }
 
 .button-container:hover {
-  background-color: var(
-    --secondary-background
-  ); /* Byt till önskad hover bakgrundsfärg */
+  background-color: var(--secondary-background);
 }
 
 .button-container {
@@ -28,6 +26,22 @@
   color: var(--primary-text);
   text-decoration: none;
   font-weight: 300;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.back-button-arrow {
+  background-image: var(--back-button-image);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 25px;
+  display: block;
+  height: 25px;
+  margin: 0 8px;
 }
 
 .country {
@@ -82,19 +96,23 @@
 
 .border-countries {
   display: flex;
-  flex: wrap;
+  flex-wrap: wrap;
   margin: 0;
   padding: 0;
   gap: 5px;
   list-style-type: none;
-  margin-top: px;
+  max-width: 250px;
 }
 
 .border-country {
-  background-color: var(--chip-color);
+  background-color: var(--secondary-background);
   color: var(--secondary-text);
-  padding: 5px 10px;
-  border-radius: 26px;
+  padding: 5px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  margin: 0 5px;
+  font-size: 12px;
+  width: 30px;
 }
 
 .border-country a {
@@ -104,4 +122,25 @@
 
 .text-info p {
   font-size: 16px;
+}
+
+.border-countries-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 100px;
+}
+
+.border-countries-container p {
+  font-weight: 300;
+  margin: 0px;
+}
+
+.border-countries-heading {
+  display: flex;
+  flex-direction: row;
+}
+
+.border-countries-heading strong {
+  margin-right: 10px;
 }

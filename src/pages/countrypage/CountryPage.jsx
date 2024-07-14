@@ -20,10 +20,15 @@ const CountryPage = () => {
     flags,
   } = data;
 
+  console.log(borders.length == 0, "#########");
+
   return (
     <div className="country-page-container">
       <div className="button-container">
-        <Link to="/">BACK</Link>
+        <Link to="/">
+          <span className="back-button-arrow"></span>
+          <span>Back</span>
+        </Link>
       </div>
       <div className="country">
         <div className="img-container">
@@ -39,26 +44,43 @@ const CountryPage = () => {
           </div>
           <div className="country-details">
             <div className="info-left">
-              <p>Population: {population.toLocaleString()}</p>
-              <p>Region: {region}</p>
-              <p>Capital: {capital}</p>
-              <p>Native Name: {nativeName}</p>
+              <p>
+                <strong>Population:</strong> {population.toLocaleString()}
+              </p>
+              <p>
+                <strong>Region:</strong> {region}
+              </p>
+              <p>
+                <strong>Capital:</strong> {capital}
+              </p>
+              <p>
+                <strong>Native Name:</strong>
+                {nativeName}
+              </p>
             </div>
             <div className="info-right">
-              <p>Top Level Domain: {topLevelDomain.join(", ")}</p>
               <p>
-                Currencies:{" "}
+                <strong>Top Level Domain:</strong> {topLevelDomain.join(", ")}
+              </p>
+              <p>
+                <strong>Currencies:</strong>{" "}
                 {Object.values(currencies)
                   .map((currency) => currency.name)
                   .join(", ")}
               </p>
-              <p>Languages: {Object.values(languages).join(", ")}</p>
+              <p>
+                <strong>Languages:</strong>{" "}
+                {Object.values(languages).join(", ")}
+              </p>
             </div>
           </div>
 
-          <h2 className="border-countries-heading">Border Countries:</h2>
           <div className="border-countries-container">
-            {borders.length > 0 ? (
+            <p className="border-countries-heading">
+              <strong>Border Countries:</strong>
+              {borders.length == 0 && <p>No border countries</p>}
+            </p>
+            {borders.length > 0 && (
               <ul className="border-countries">
                 {borders.map((border, index) => (
                   <li className="border-country" key={index}>
@@ -66,8 +88,6 @@ const CountryPage = () => {
                   </li>
                 ))}
               </ul>
-            ) : (
-              <p>No border countries</p>
             )}
           </div>
         </div>

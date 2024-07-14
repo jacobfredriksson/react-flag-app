@@ -6,9 +6,15 @@ const CountryCard = ({ flag, name, population, region, capital }) => {
       <img src={flag} alt={`Flag of ${name}`} className="country-img" />
       <div className="country-text-container">
         <h3>{name}</h3>
-        <p>Capital: {capital}</p>
-        <p>Region: {region}</p>
-        <p>Population: {population}</p>
+        <p>
+          <strong> Capital: </strong> {capital}
+        </p>
+        <p>
+          <strong>Region: </strong> {region}
+        </p>
+        <p>
+          <strong>Population:</strong> {population}
+        </p>
       </div>
     </button>
   );
