@@ -9,14 +9,14 @@ import Dropdown from "../../components/dropdown/Dropdown";
 import React, { useState, useEffect } from "react";
 import "./homepage.css";
 import { Link, useLoaderData } from "react-router-dom";
-
-// 1. använd data från useLoaderData och sätt den till allCountries som en state variabel
-// 2. Vid search andvänd useloaderdata som grundläggande data som filtreras över (all data ligger i data)
+import "react-loading-skeleton/dist/skeleton.css";
+import SkeletonCountryCard from "../../components/skeletion/SkeletionCountryCard";
 
 const HomePage = () => {
   const [allCountries, setAllCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const data = useLoaderData();
   console.log(data);
@@ -25,24 +25,31 @@ const HomePage = () => {
     if (data) {
       setAllCountries(data);
       setFilteredCountries(data);
+      setLoading(true);
     }
   }, [data]);
 
   const handleSearch = async (search) => {
+    setLoading(true); // Sätt loading till true när sökning pågår
+
     if (search.trim() === "") {
       setFilteredCountries(data);
+      setLoading(true); // Sätt loading till false när sökning är klar
     } else {
       try {
         const results = await searchCountries(search.trim());
         setFilteredCountries(results);
       } catch (error) {
         console.error("Error when searching for country", error);
+      } finally {
+        setLoading(false); // Sätt loading till false även om ett fel uppstår
       }
     }
   };
 
   const handleRegionChange = async (region) => {
     setSelectedRegion(region);
+    setLoading(true); // Sätt loading till true när region ändras och data hämtas
     try {
       let countries;
       if (region === "all") {
@@ -53,6 +60,8 @@ const HomePage = () => {
       setFilteredCountries(countries);
     } catch (error) {
       console.error("Error when trying to get countries by region");
+    } finally {
+      setLoading(true); // Sätt loading till false när data har hämtats eller fel har uppstått
     }
   };
 
@@ -66,18 +75,25 @@ const HomePage = () => {
             onSelect={handleRegionChange}
           />
         </div>
-        {filteredCountries.map((country) => (
-          <Link to={`/country/${country.cca3}`} key={country.cca3}>
-            <CountryCard
-              key={country.name}
-              flag={country.flag}
-              name={country.name}
-              population={country.population}
-              region={country.region}
-              capital={country.capital}
-            />
-          </Link>
-        ))}
+
+        {loading
+          ? Array(12)
+              .fill()
+              .map((_, index) => (
+                <SkeletonCountryCard key={index} /> // Visa skeleton loaders om loading är true
+              ))
+          : filteredCountries.map((country) => (
+              <Link to={`/country/${country.cca3}`} key={country.cca3}>
+                <CountryCard
+                  key={country.name}
+                  flag={country.flag}
+                  name={country.name}
+                  population={country.population}
+                  region={country.region}
+                  capital={country.capital}
+                />
+              </Link>
+            ))}
       </div>
     </div>
   );
