@@ -2,10 +2,19 @@ import { Link } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import "./countrypage.css";
 import "../../styles/App.css";
+import Skeleton from "react-loading-skeleton"; // Importera Skeleton-komponenten
+import "react-loading-skeleton/dist/skeleton.css";
+import React, { useState, useEffect } from "react";
 
 const CountryPage = () => {
-  const data = useLoaderData()[0];
-  console.log(data);
+  const [loading, setLoading] = useState(true);
+  const data = useLoaderData()[0]; // Lägg till loading state
+
+  useEffect(() => {
+    if (data) {
+      setLoading(true); // Sätt loading till false när data är laddad
+    }
+  }, [data]);
 
   const {
     population,
@@ -32,54 +41,89 @@ const CountryPage = () => {
       </div>
       <div className="country">
         <div className="img-container">
-          <img
-            src={flags.png}
-            alt={`Flag of ${name.common}`}
-            className="flag-img"
-          ></img>
+          {loading ? (
+            <Skeleton height={300} /> // Skeleton för flaggans bild
+          ) : (
+            <img
+              src={flags.png}
+              alt={`Flag of ${name.common}`}
+              className="flag-img"
+            ></img>
+          )}
         </div>
         <div className="text-info">
           <div className="name-container">
-            <h1 className="country-name">{name.common}</h1>
+            {loading ? (
+              <Skeleton width={`100%`} height={2} /> // Skeleton för landets namn
+            ) : (
+              <h1 className="country-name">{name.common}</h1>
+            )}
           </div>
           <div className="country-details">
             <div className="info-left">
-              <p>
-                <strong>Population:</strong> {population.toLocaleString()}
-              </p>
-              <p>
-                <strong>Region:</strong> {region}
-              </p>
-              <p>
-                <strong>Capital:</strong> {capital}
-              </p>
-              <p>
-                <strong>Native Name:</strong>
-                {nativeName}
-              </p>
+              {loading ? (
+                <>
+                  <Skeleton width={150} />
+                  <Skeleton width={150} />
+                  <Skeleton width={150} />
+                  <Skeleton width={150} />
+                </>
+              ) : (
+                <>
+                  <p>
+                    <strong>Population:</strong> {population.toLocaleString()}
+                  </p>
+                  <p>
+                    <strong>Region:</strong> {region}
+                  </p>
+                  <p>
+                    <strong>Capital:</strong> {capital}
+                  </p>
+                  <p>
+                    <strong>Native Name:</strong>
+                    {nativeName}
+                  </p>
+                </>
+              )}
             </div>
             <div className="info-right">
-              <p>
-                <strong>Top Level Domain:</strong> {topLevelDomain.join(", ")}
-              </p>
-              <p>
-                <strong>Currencies:</strong>{" "}
-                {Object.values(currencies)
-                  .map((currency) => currency.name)
-                  .join(", ")}
-              </p>
-              <p>
-                <strong>Languages:</strong>{" "}
-                {Object.values(languages).join(", ")}
-              </p>
+              {loading ? (
+                <>
+                  <Skeleton width={150} />
+                  <Skeleton width={150} />
+                  <Skeleton width={150} />
+                </>
+              ) : (
+                <>
+                  <p>
+                    <strong>Top Level Domain:</strong>{" "}
+                    {topLevelDomain.join(", ")}
+                  </p>
+                  <p>
+                    <strong>Currencies:</strong>{" "}
+                    {Object.values(currencies)
+                      .map((currency) => currency.name)
+                      .join(", ")}
+                  </p>
+                  <p>
+                    <strong>Languages:</strong>{" "}
+                    {Object.values(languages).join(", ")}
+                  </p>
+                </>
+              )}
             </div>
           </div>
 
           <div className="border-countries-container">
-            <p className="border-countries-heading">
-              <strong>Border Countries:</strong>
-              {borders.length == 0 && <p>No border countries</p>}
-            </p>
+            {loading ? (
+              <Skeleton width={200} height={40} /> // Skeleton för grannländer rubriken
+            ) : (
+              <p className="border-countries-heading">
+                <strong>Border Countries:</strong>
+                {borders.length == 0 && <p>No border countries</p>}
+              </p>
+            )}
+
             {borders.length > 0 && (
               <ul className="border-countries">
                 {borders.map((border, index) => (

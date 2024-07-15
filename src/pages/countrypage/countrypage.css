@@ -144,3 +144,27 @@
 .border-countries-heading strong {
   margin-right: 10px;
 }
+
+.skeleton-flag {
+  width: 100%;
+  height: 266px; /* Matchar höjden på flaggans bild */
+  border-radius: 10px;
+}
+
+.skeleton-country-name {
+  width: 300px;
+  height: 48px; /* Matchar höjden på landets namn */
+  margin-bottom: 17px;
+}
+
+.skeleton-text-line {
+  width: 200px;
+  height: 24px; /* Matchar höjden på textlinjer */
+  margin-bottom: 10px;
+}
+
+.skeleton-border-heading {
+  width: 200px;
+  height: 24px; /* Matchar höjden på border countries heading */
+  margin-bottom: 10px;
+}

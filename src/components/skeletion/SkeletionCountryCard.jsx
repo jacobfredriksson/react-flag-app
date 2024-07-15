@@ -3,7 +3,10 @@ import Skeleton from "react-loading-skeleton";
 const SkeletonCountryCard = () => {
   return (
     <div className="country-card-container">
-      <Skeleton height={150} />
+      <Skeleton
+        height={150}
+        style={{ lineHeight: "25px", cornerRadius: "0 0 4px 4px" }}
+      />
       <div className="country-text-container">
         <h3>
           <Skeleton width={`100%`} />
