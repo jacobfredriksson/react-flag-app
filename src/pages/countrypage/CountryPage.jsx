@@ -42,95 +42,93 @@ const CountryPage = () => {
       <div className="country">
         <div className="img-container">
           {loading ? (
-            <Skeleton height={300} /> // Skeleton för flaggans bild
+            <Skeleton className="skeleton-flag" /> // Skeleton för flaggans bild
           ) : (
             <img
               src={flags.png}
               alt={`Flag of ${name.common}`}
               className="flag-img"
-            ></img>
+            />
           )}
         </div>
         <div className="text-info">
           <div className="name-container">
-            {loading ? (
-              <Skeleton width={`100%`} height={2} /> // Skeleton för landets namn
-            ) : (
-              <h1 className="country-name">{name.common}</h1>
-            )}
+            <h1 className="country-name">
+              {loading ? <Skeleton /> : name.common}
+            </h1>
           </div>
           <div className="country-details">
             <div className="info-left">
-              {loading ? (
-                <>
-                  <Skeleton width={150} />
-                  <Skeleton width={150} />
-                  <Skeleton width={150} />
-                  <Skeleton width={150} />
-                </>
-              ) : (
-                <>
-                  <p>
-                    <strong>Population:</strong> {population.toLocaleString()}
-                  </p>
-                  <p>
-                    <strong>Region:</strong> {region}
-                  </p>
-                  <p>
-                    <strong>Capital:</strong> {capital}
-                  </p>
-                  <p>
-                    <strong>Native Name:</strong>
-                    {nativeName}
-                  </p>
-                </>
-              )}
+              <>
+                <p>
+                  <strong>Population:</strong>{" "}
+                  {loading ? (
+                    <Skeleton width={150} />
+                  ) : (
+                    population.toLocaleString()
+                  )}
+                </p>
+                <p>
+                  <strong>Region:</strong>
+                  {loading ? <Skeleton width={150} /> : region}
+                </p>
+                <p>
+                  <strong>Capital:</strong>
+                  {loading ? <Skeleton width={150} /> : capital}
+                </p>
+                <p>
+                  <strong>Native Name:</strong>
+                  {loading ? <Skeleton width={150} /> : nativeName}
+                </p>
+              </>
             </div>
             <div className="info-right">
-              {loading ? (
-                <>
+              <p>
+                <strong>Top Level Domain:</strong>{" "}
+                {loading ? <Skeleton width={150} /> : topLevelDomain.join(", ")}
+              </p>
+              <p>
+                <strong>Currencies:</strong>{" "}
+                {loading ? (
                   <Skeleton width={150} />
+                ) : (
+                  Object.values(currencies)
+                    .map((currency) => currency.name)
+                    .join(", ")
+                )}
+              </p>
+              <p>
+                <strong>Languages:</strong>{" "}
+                {loading ? (
                   <Skeleton width={150} />
-                  <Skeleton width={150} />
-                </>
-              ) : (
-                <>
-                  <p>
-                    <strong>Top Level Domain:</strong>{" "}
-                    {topLevelDomain.join(", ")}
-                  </p>
-                  <p>
-                    <strong>Currencies:</strong>{" "}
-                    {Object.values(currencies)
-                      .map((currency) => currency.name)
-                      .join(", ")}
-                  </p>
-                  <p>
-                    <strong>Languages:</strong>{" "}
-                    {Object.values(languages).join(", ")}
-                  </p>
-                </>
-              )}
+                ) : (
+                  Object.values(languages).join(", ")
+                )}
+              </p>
             </div>
           </div>
 
           <div className="border-countries-container">
-            {loading ? (
-              <Skeleton width={200} height={40} /> // Skeleton för grannländer rubriken
-            ) : (
-              <p className="border-countries-heading">
-                <strong>Border Countries:</strong>
-                {borders.length == 0 && <p>No border countries</p>}
-              </p>
-            )}
+            <p className="border-countries-heading">
+              <strong>Border Countries:</strong>
+              {borders.length == 0 && <p>No border countries</p>}
+            </p>
 
             {borders.length > 0 && (
               <ul className="border-countries">
-                {borders.map((border, index) => (
-                  <li className="border-country" key={index}>
-                    <Link to={`/country/${border}`}>{border}</Link>
-                  </li>
-                ))}
+                {loading ? (
+                  <Skeleton
+                    width={35}
+                    count={3}
+                    className="skeleton-border-country"
+                  />
+                ) : (
+                  borders.map((border, index) => (
+                    <li className="border-country" key={index}>
+                      <Link to={`/country/${border}`}>{border}</Link>
+                    </li>
+                  ))
+                )}
               </ul>
             )}
           </div>
