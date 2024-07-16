@@ -28,6 +28,7 @@
 h3 {
   color: var(--primary-text);
   font-weight: 300;
+  font-size: var(--font-size-small);
 }
 
 p {

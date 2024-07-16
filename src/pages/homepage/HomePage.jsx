@@ -25,7 +25,7 @@ const HomePage = () => {
     if (data) {
       setAllCountries(data);
       setFilteredCountries(data);
-      setLoading(true);
+      setLoading(false);
     }
   }, [data]);
 

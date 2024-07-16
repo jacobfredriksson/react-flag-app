@@ -7,12 +7,12 @@ import "react-loading-skeleton/dist/skeleton.css";
 import React, { useState, useEffect } from "react";
 
 const CountryPage = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const data = useLoaderData()[0]; // Lägg till loading state
 
   useEffect(() => {
     if (data) {
-      setLoading(true); // Sätt loading till false när data är laddad
+      setLoading(false); // Sätt loading till false när data är laddad
     }
   }, [data]);
 
@@ -111,26 +111,26 @@ const CountryPage = () => {
           <div className="border-countries-container">
             <p className="border-countries-heading">
               <strong>Border Countries:</strong>
-              {borders.length == 0 && <p>No border countries</p>}
             </p>
-
-            {borders.length > 0 && (
+            {
               <ul className="border-countries">
                 {loading ? (
-                  <Skeleton
-                    width={35}
-                    count={3}
-                    className="skeleton-border-country"
-                  />
-                ) : (
+                  <div style={{ display: "flex", gap: "5px" }}>
+                    <Skeleton width={35} className="skeleton-border-country" />
+                    <Skeleton width={35} className="skeleton-border-country" />
+                    <Skeleton width={35} className="skeleton-border-country" />
+                  </div>
+                ) : borders.length > 0 ? (
                   borders.map((border, index) => (
                     <li className="border-country" key={index}>
                       <Link to={`/country/${border}`}>{border}</Link>
                     </li>
                   ))
+                ) : (
+                  <p>No border countries</p>
                 )}
               </ul>
-            )}
+            }
           </div>
         </div>
       </div>
