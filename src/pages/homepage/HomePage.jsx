@@ -16,10 +16,9 @@ const HomePage = () => {
   const [allCountries, setAllCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [selectedRegion, setSelectedRegion] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const data = useLoaderData();
-  console.log(data);
 
   useEffect(() => {
     if (data) {
@@ -30,11 +29,11 @@ const HomePage = () => {
   }, [data]);
 
   const handleSearch = async (search) => {
-    setLoading(true); // Sätt loading till true när sökning pågår
+    setLoading(false);
 
     if (search.trim() === "") {
       setFilteredCountries(data);
-      setLoading(true); // Sätt loading till false när sökning är klar
+      setLoading(false);
     } else {
       try {
         const results = await searchCountries(search.trim());
@@ -42,14 +41,14 @@ const HomePage = () => {
       } catch (error) {
         console.error("Error when searching for country", error);
       } finally {
-        setLoading(false); // Sätt loading till false även om ett fel uppstår
+        setLoading(false);
       }
     }
   };
 
   const handleRegionChange = async (region) => {
     setSelectedRegion(region);
-    setLoading(true); // Sätt loading till true när region ändras och data hämtas
+    setLoading(false);
     try {
       let countries;
       if (region === "all") {
@@ -61,7 +60,7 @@ const HomePage = () => {
     } catch (error) {
       console.error("Error when trying to get countries by region");
     } finally {
-      setLoading(true); // Sätt loading till false när data har hämtats eller fel har uppstått
+      setLoading(false);
     }
   };
 
@@ -79,21 +78,20 @@ const HomePage = () => {
         {loading
           ? Array(12)
               .fill()
-              .map((_, index) => (
-                <SkeletonCountryCard key={index} /> // Visa skeleton loaders om loading är true
-              ))
-          : filteredCountries.map((country) => (
-              <Link to={`/country/${country.cca3}`} key={country.cca3}>
-                <CountryCard
-                  key={country.name}
-                  flag={country.flag}
-                  name={country.name}
-                  population={country.population}
-                  region={country.region}
-                  capital={country.capital}
-                />
-              </Link>
-            ))}
+              .map((_, index) => <SkeletonCountryCard key={index} />)
+          : filteredCountries
+              .sort((a, b) => a.name.localeCompare(b.name, "sv"))
+              .map((country) => (
+                <Link to={`/country/${country.cca3}`} key={country.cca3}>
+                  <CountryCard
+                    flag={country.flag}
+                    name={country.name}
+                    population={country.population}
+                    region={country.region}
+                    capital={country.capital}
+                  />
+                </Link>
+              ))}
       </div>
     </div>
   );

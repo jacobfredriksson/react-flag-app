@@ -12,3 +12,11 @@
   margin: 0px auto;
   gap: 40px;
 }
+
+/* media queries mobile */
+@media only screen and (max-width: 375px) {
+  .country-cards {
+    display: flex;
+    justify-content: center;
+  }
+}

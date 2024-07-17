@@ -5,7 +5,7 @@
   border: none;
   margin: 0px;
   padding: 0px;
-  width: 240px;
+  width: 270px;
   border-radius: 0 0 4px 4px;
 }
 
@@ -17,18 +17,16 @@
 }
 
 .country-text-container {
-  padding: 16px;
-  line-height: 32px;
+  height: 115px;
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
-  text-align: left;
+  align-items: start;
 }
 
 h3 {
   color: var(--primary-text);
-  font-weight: 300;
-  font-size: var(--font-size-small);
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
 p {

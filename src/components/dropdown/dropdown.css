@@ -18,7 +18,37 @@
   cursor: pointer;
   background-image: var(--chevron-down-image);
   background-repeat: no-repeat;
-  background-position: right 10px center; /* Adjust position as needed */
+  background-position: right 10px center;
   background-size: 8px 8px;
   font-weight: 500;
+}
+
+.dropdown option {
+  color: var(--primary-color);
+  background-color: var(--secondary-background);
+  padding: 8px;
+}
+
+.dropdown:focus {
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.dropdown-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background-image: var(--chevron-down-image);
+  background-position: right 10px center;
+  font-weight: 500;
+}
+
+/* media queries mobile */
+@media only screen and (max-width: 375px) {
+  .custom-dropdown-wrapper {
+    margin-left: 30px;
+  }
 }

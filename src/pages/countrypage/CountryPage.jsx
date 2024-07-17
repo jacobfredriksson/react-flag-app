@@ -2,17 +2,17 @@ import { Link } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import "./countrypage.css";
 import "../../styles/App.css";
-import Skeleton from "react-loading-skeleton"; // Importera Skeleton-komponenten
+import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import React, { useState, useEffect } from "react";
 
 const CountryPage = () => {
   const [loading, setLoading] = useState(false);
-  const data = useLoaderData()[0]; // Lägg till loading state
+  const data = useLoaderData()[0];
 
   useEffect(() => {
     if (data) {
-      setLoading(false); // Sätt loading till false när data är laddad
+      setLoading(false);
     }
   }, [data]);
 
@@ -21,7 +21,6 @@ const CountryPage = () => {
     region,
     capital,
     name,
-    nativeName,
     tld: topLevelDomain,
     currencies,
     languages,
@@ -29,7 +28,9 @@ const CountryPage = () => {
     flags,
   } = data;
 
-  console.log(borders.length == 0, "#########");
+  const nativeCommonName = data.name
+    ? Object.values(data.name.nativeName).find((n) => n.common)?.common || "N/A"
+    : "N/A";
 
   return (
     <div className="country-page-container">
@@ -42,7 +43,7 @@ const CountryPage = () => {
       <div className="country">
         <div className="img-container">
           {loading ? (
-            <Skeleton className="skeleton-flag" /> // Skeleton för flaggans bild
+            <Skeleton className="skeleton-flag" />
           ) : (
             <img
               src={flags.png}
@@ -61,7 +62,7 @@ const CountryPage = () => {
             <div className="info-left">
               <>
                 <p>
-                  <strong>Population:</strong>{" "}
+                  <strong>Population: </strong>
                   {loading ? (
                     <Skeleton width={150} />
                   ) : (
@@ -69,26 +70,26 @@ const CountryPage = () => {
                   )}
                 </p>
                 <p>
-                  <strong>Region:</strong>
+                  <strong>Region: </strong>
                   {loading ? <Skeleton width={150} /> : region}
                 </p>
                 <p>
-                  <strong>Capital:</strong>
+                  <strong>Capital: </strong>
                   {loading ? <Skeleton width={150} /> : capital}
                 </p>
                 <p>
-                  <strong>Native Name:</strong>
-                  {loading ? <Skeleton width={150} /> : nativeName}
+                  <strong>Native Name: </strong>
+                  {loading ? <Skeleton width={150} /> : nativeCommonName}
                 </p>
               </>
             </div>
             <div className="info-right">
               <p>
-                <strong>Top Level Domain:</strong>{" "}
+                <strong>Top Level Domain: </strong>
                 {loading ? <Skeleton width={150} /> : topLevelDomain.join(", ")}
               </p>
               <p>
-                <strong>Currencies:</strong>{" "}
+                <strong>Currencies: </strong>
                 {loading ? (
                   <Skeleton width={150} />
                 ) : (
@@ -98,7 +99,7 @@ const CountryPage = () => {
                 )}
               </p>
               <p>
-                <strong>Languages:</strong>{" "}
+                <strong>Languages: </strong>
                 {loading ? (
                   <Skeleton width={150} />
                 ) : (

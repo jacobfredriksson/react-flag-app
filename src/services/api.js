@@ -10,19 +10,7 @@ export const getAllCountries = async () => {
     }
     const data = await response.json();
 
-    const extractedData = data.map((country) => ({
-      flag: country.flags ? country.flags.png : "No Flag",
-      name: country.name.common,
-      population: country.population,
-      region: country.region,
-      capital:
-        country.capital && country.capital.length > 0
-          ? country.capital[0]
-          : "No capital",
-      cca3: country.cca3,
-    }));
-
-    return extractedData;
+    return transformedCountryData(data);
   } catch (error) {
     console.error("Error when trying to get all countries:", error.message);
     throw error;
@@ -48,20 +36,11 @@ export const searchCountries = async (search) => {
     }
     const data = await response.json();
 
-    const filteredData = data
-      .filter((country) =>
-        country.name.common.toLowerCase().startsWith(search.toLowerCase())
-      )
-      .sort((a, b) => a.name.common.localeCompare(b.name.common));
+    const filteredData = data.filter((country) =>
+      country.name.common.toLowerCase().startsWith(search.toLowerCase())
+    );
 
-    return filteredData.map((country) => ({
-      flag: country.flags ? country.flags.png : "No Flag",
-      name: country.name.common,
-      population: country.population,
-      region: country.region,
-      capital: country.capital ? country.capital[0] : "No Capital",
-      cca3: country.cca3,
-    }));
+    return transformedCountryData(filteredData);
   } catch (error) {
     console.error("Error when searching for country:", error);
     return [];
@@ -85,21 +64,23 @@ export const countriesByRegion = async (region) => {
 
     const data = await response.json();
 
-    const extractedData = data.map((country) => ({
-      flag: country.flags.png,
-      name: country.name.common,
-      population: country.population,
-      region: country.region,
-      capital:
-        country.capital && country.capital.length > 0
-          ? country.capital[0]
-          : "No capital",
-      cca3: country.cca3,
-    }));
-
-    return extractedData;
+    return transformedCountryData(data);
   } catch (error) {
     console.error("Error getting countries by region:", error);
     throw error;
   }
+};
+
+const transformedCountryData = (data) => {
+  return data.map((country) => ({
+    flag: country.flags ? country.flags.png : "No Flag",
+    name: country.name.common,
+    population: country.population,
+    region: country.region,
+    capital:
+      country.capital && country.capital.length > 0
+        ? country.capital[0]
+        : "No capital",
+    cca3: country.cca3,
+  }));
 };

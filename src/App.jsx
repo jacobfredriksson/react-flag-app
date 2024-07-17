@@ -46,17 +46,7 @@ function App() {
     )
   );
 
-  return (
-    <RouterProvider router={router} />
-    // <Router>
-    //   <Routes>
-    //     <Route path="/" element={<Layout toggleTheme={toggleTheme} />}>
-    //       <Route index element={<HomePage />} />
-    //       <Route path="/country/:cca3" element={<CountryPage />} />
-    //     </Route>
-    //   </Routes>
-    // </Router>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

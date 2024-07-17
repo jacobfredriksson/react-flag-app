@@ -23,3 +23,20 @@
 .search-input::placeholder {
   color: var(--text-primary);
 }
+
+/* media queries mobile */
+@media only screen and (max-width: 375px) {
+  .search-container {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    gap: 25px;
+  }
+
+  .search-input {
+    width: 330px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
