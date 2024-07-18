@@ -5,7 +5,7 @@ const CountryCard = ({ flag, name, population, region, capital }) => {
     <button className="country-card-container">
       <img src={flag} alt={`Flag of ${name}`} className="country-img" />
       <div className="country-text-container">
-        <h3>{name}</h3>
+        <h2>{name}</h2>
         <p>
           <strong> Capital: </strong> {capital}
         </p>

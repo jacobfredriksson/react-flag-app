@@ -82,7 +82,11 @@ const HomePage = () => {
           : filteredCountries
               .sort((a, b) => a.name.localeCompare(b.name, "sv"))
               .map((country) => (
-                <Link to={`/country/${country.cca3}`} key={country.cca3}>
+                <Link
+                  to={`/country/${country.cca3}`}
+                  key={country.cca3}
+                  className="country-card-link"
+                >
                   <CountryCard
                     flag={country.flag}
                     name={country.name}

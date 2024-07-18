@@ -4,6 +4,10 @@
   background-color: var(--primary-background);
 }
 
+.search-container {
+  margin-top: 40px;
+}
+
 .country-cards {
   display: flex;
   flex-direction: row;
@@ -11,9 +15,9 @@
   max-width: 1200px;
   margin: 0px auto;
   gap: 40px;
+  margin-bottom: 70px;
 }
 
-/* media queries mobile */
 @media only screen and (max-width: 375px) {
   .country-cards {
     display: flex;

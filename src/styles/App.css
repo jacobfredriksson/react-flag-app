@@ -6,7 +6,6 @@ option {
   background-color: var(--dark-grey);
   background-color: var(--primary-background);
   color: var(--primary-text);
-  transition: background-color 0.3s ease, color 0.3s ease;
   letter-spacing: 0.1rem;
 }
 
