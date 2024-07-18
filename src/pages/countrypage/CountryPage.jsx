@@ -11,6 +11,7 @@ const CountryPage = () => {
   const data = useLoaderData()[0];
 
   useEffect(() => {
+    console.log("hej");
     if (data) {
       setLoading(false);
     }
@@ -28,7 +29,7 @@ const CountryPage = () => {
     flags,
   } = data;
 
-  const nativeCommonName = data.name
+  const nativeCommonName = data.name.nativeName
     ? Object.values(data.name.nativeName).find((n) => n.common)?.common || "N/A"
     : "N/A";
 
@@ -55,7 +56,7 @@ const CountryPage = () => {
         <div className="text-info">
           <div className="name-container">
             <h1 className="country-name">
-              {loading ? <Skeleton /> : name.common}
+              {loading ? <Skeleton /> : name.common ? name.common : "N/A"}
             </h1>
           </div>
           <div className="country-details">
@@ -65,17 +66,25 @@ const CountryPage = () => {
                   <strong>Population: </strong>
                   {loading ? (
                     <Skeleton width={150} />
-                  ) : (
+                  ) : population ? (
                     population.toLocaleString()
+                  ) : (
+                    "N/A"
                   )}
                 </p>
                 <p>
                   <strong>Region: </strong>
-                  {loading ? <Skeleton width={150} /> : region}
+                  {loading ? <Skeleton width={150} /> : region ? region : "N/A"}
                 </p>
                 <p>
                   <strong>Capital: </strong>
-                  {loading ? <Skeleton width={150} /> : capital}
+                  {loading ? (
+                    <Skeleton width={150} />
+                  ) : capital ? (
+                    capital
+                  ) : (
+                    "N/A"
+                  )}
                 </p>
                 <p>
                   <strong>Native Name: </strong>
@@ -92,18 +101,22 @@ const CountryPage = () => {
                 <strong>Currencies: </strong>
                 {loading ? (
                   <Skeleton width={150} />
-                ) : (
+                ) : currencies ? (
                   Object.values(currencies)
                     .map((currency) => currency.name)
                     .join(", ")
+                ) : (
+                  "N/A"
                 )}
               </p>
               <p>
                 <strong>Languages: </strong>
                 {loading ? (
                   <Skeleton width={150} />
-                ) : (
+                ) : languages ? (
                   Object.values(languages).join(", ")
+                ) : (
+                  "N/A"
                 )}
               </p>
             </div>
