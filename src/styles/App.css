@@ -39,9 +39,3 @@ body.dark-mode {
   --header-button-image: url("../assets/moon.svg");
   --back-button-image: url("../assets/arrow-left.svg");
 }
-
-@media (max-width: px) {
-  :root {
-    --font-size-small: 10px;
-  }
-}

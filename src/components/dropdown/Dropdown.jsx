@@ -5,10 +5,9 @@ import { styled } from "@mui/system";
 const StyledFormControl = styled(FormControl)({
   position: "relative",
   display: "inline-block",
-  width: "175px",
-  "@media (max-width: 375px)": {
-    marginLeft: "20px",
-    width: "175px",
+  minWidth: "175px",
+  "@media (max-width: 900px)": {
+    width: "50%",
   },
 });
 
