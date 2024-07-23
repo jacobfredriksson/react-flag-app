@@ -1,5 +1,5 @@
 .homepage-container {
-  padding: 0;
+  padding: 0 20px;
   margin: 0;
   background-color: var(--primary-background);
 }
@@ -18,7 +18,7 @@
   margin-bottom: 70px;
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 900px) {
   .country-cards {
     display: flex;
     justify-content: center;

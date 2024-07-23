@@ -40,8 +40,20 @@ body.dark-mode {
   --back-button-image: url("../assets/arrow-left.svg");
 }
 
-@media (max-width: px) {
+@media (max-width: 375px) {
   :root {
-    --font-size-small: 10px;
+   --spacing: 12px
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+   --spacing: 16px
+  }
+}
+
+@media (max-width: 1200px) {
+  :root {
+   --spacing: 24px
   }
 }

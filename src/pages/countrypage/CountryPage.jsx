@@ -95,7 +95,7 @@ const CountryPage = () => {
             <div className="info-right">
               <p>
                 <strong>Top Level Domain: </strong>
-                {loading ? <Skeleton width={150} /> : topLevelDomain.join(", ")}
+                {loading ? <Skeleton width={150} /> : topLevelDomain.join(",")}
               </p>
               <p>
                 <strong>Currencies: </strong>
